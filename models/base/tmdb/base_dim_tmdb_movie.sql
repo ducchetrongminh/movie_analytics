@@ -7,12 +7,12 @@ WITH source AS (
   SELECT 
     id AS tmdb_movie_id
     , title
-    , vote_average AS tmdb_vote_avg
-    , vote_count AS tmdb_vote_count
+    , vote_average AS tmdb_rating_avg
+    , vote_count AS tmdb_rating_count
     , status
     , release_date
     , revenue
-    , runtime
+    , runtime AS runtime_minutes
     , budget
     , imdb_id AS imdb_movie_id
     , popularity AS tmdb_popularity
@@ -24,12 +24,12 @@ WITH source AS (
   SELECT 
       CAST(tmdb_movie_id AS INTEGER) AS tmdb_movie_id
       , CAST(title AS STRING) AS title
-      , CAST(tmdb_vote_avg AS NUMERIC) AS tmdb_vote_avg
-      , CAST(tmdb_vote_count AS INTEGER) AS tmdb_vote_count
+      , CAST(tmdb_rating_avg AS NUMERIC) AS tmdb_rating_avg
+      , CAST(tmdb_rating_count AS INTEGER) AS tmdb_rating_count
       , CAST(status AS STRING) AS status
       , CAST(release_date AS DATE) AS release_date
       , CAST(revenue AS NUMERIC) AS revenue
-      , CAST(runtime AS INTEGER) AS runtime
+      , CAST(runtime_minutes AS INTEGER) AS runtime_minutes
       , CAST(budget AS NUMERIC) AS budget
       , CAST(imdb_movie_id AS STRING) AS imdb_movie_id
       , CAST(tmdb_popularity AS NUMERIC) AS tmdb_popularity
@@ -41,15 +41,15 @@ WITH source AS (
   SELECT * 
     EXCEPT (
       tmdb_genres
-      , runtime
+      , runtime_minutes
       , budget
-      , tmdb_vote_avg
+      , tmdb_rating_avg
       , imdb_movie_id
     )
     , COALESCE(NULLIF(tmdb_genres, ''), 'Undefined') AS tmdb_genres
-    , NULLIF(runtime, 0) AS runtime
+    , NULLIF(runtime_minutes, 0) AS runtime_minutes
     , NULLIF(budget, 0) AS budget
-    , NULLIF(tmdb_vote_avg, 0) AS tmdb_vote_avg
+    , NULLIF(tmdb_rating_avg, 0) AS tmdb_rating_avg
     , COALESCE(NULLIF(imdb_movie_id, ''), 'UNDEFINED') AS imdb_movie_id
   FROM cast_type
 )
@@ -65,11 +65,11 @@ SELECT
   -- DATE
   , release_date
   -- NUMBER ATTRIBUTES
-  , runtime
+  , runtime_minutes
   , revenue
   , budget
-  , tmdb_vote_avg
-  , tmdb_vote_count
+  , tmdb_rating_avg
+  , tmdb_rating_count
   , tmdb_popularity
   -- OTHER DIM
   , imdb_movie_id
