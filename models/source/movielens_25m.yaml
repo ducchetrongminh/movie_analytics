@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: movielens_25m
+    schema: movielens_25m
+    description: >
+      Raw data from Movielens https://grouplens.org/datasets/movielens/
+
+    tables: 
+      - name: genome_scores
+      - name: genome_tags
+      - name: links
+      - name: movies
+      - name: ratings
+      - name: tags
