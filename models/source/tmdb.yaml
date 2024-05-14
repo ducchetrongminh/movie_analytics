@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: tmdb
+    schema: tmdb
+    description: >
+      Raw data from TMDB https://www.themoviedb.org/
+
+    tables: 
+      - name: tmdb_movie_dataset
+        description: >
+          Source of the dataset: https://zoomcharts.com/en/microsoft-power-bi-custom-visuals/challenges/onyx-data-april-2024
