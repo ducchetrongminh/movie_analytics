@@ -6,7 +6,7 @@ WITH source AS (
 , rename_column AS (
   SELECT 
     id AS tmdb_movie_id
-    , title AS tmdb_movie_title
+    , title
     , vote_average AS tmdb_vote_avg
     , vote_count AS tmdb_vote_count
     , status
@@ -23,7 +23,7 @@ WITH source AS (
 , cast_type AS (
   SELECT 
       CAST(tmdb_movie_id AS INTEGER) AS tmdb_movie_id
-      , CAST(tmdb_movie_title AS STRING) AS tmdb_movie_title
+      , CAST(title AS STRING) AS title
       , CAST(tmdb_vote_avg AS NUMERIC) AS tmdb_vote_avg
       , CAST(tmdb_vote_count AS INTEGER) AS tmdb_vote_count
       , CAST(status AS STRING) AS status
@@ -41,7 +41,7 @@ SELECT
   -- KEY
   tmdb_movie_id
   -- NAME
-  , tmdb_movie_title
+  , title
   -- DIMENSION
   , status
   , tmdb_genres
