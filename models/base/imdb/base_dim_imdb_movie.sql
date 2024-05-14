@@ -32,5 +32,15 @@ WITH source AS (
   FROM rename_column
 )
 
+, handle_null AS (
+  SELECT *
+    EXCEPT (
+      imdb_genres
+    )
+
+    , COALESCE(imdb_genres, 'Undefined') AS imdb_genres
+  FROM cast_type
+)
+
 SELECT *
-FROM cast_type
+FROM handle_null
