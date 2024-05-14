@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: imdb
+    database: bigquery-public-data
+    schema: imdb
+    description: >
+      Raw data from IMDB https://developer.imdb.com/non-commercial-datasets/
+
+    tables: 
+      - name: name_basics
+      - name: reviews
+      - name: title_akas
+      - name: title_basics
+      - name: title_crew
+      - name: title_episode
+      - name: title_principals
+      - name: title_ratings
