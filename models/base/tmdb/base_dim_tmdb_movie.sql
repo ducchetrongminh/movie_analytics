@@ -37,5 +37,23 @@ WITH source AS (
   FROM rename_column
 )
 
-SELECT *
+SELECT
+  -- KEY
+  tmdb_movie_id
+  -- NAME
+  , tmdb_movie_title
+  -- DIMENSION
+  , status
+  , tmdb_genres
+  -- DATE
+  , release_date
+  -- NUMBER ATTRIBUTES
+  , runtime
+  , revenue
+  , budget
+  , tmdb_vote_avg
+  , tmdb_vote_count
+  , tmdb_popularity
+  -- OTHER DIM
+  , imdb_movie_id
 FROM cast_type
