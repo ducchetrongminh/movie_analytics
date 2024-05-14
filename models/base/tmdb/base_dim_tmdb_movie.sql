@@ -20,5 +20,22 @@ WITH source AS (
   FROM source
 )
 
+, cast_type AS (
+  SELECT 
+      CAST(tmdb_movie_id AS INTEGER) AS tmdb_movie_id
+      , CAST(tmdb_movie_title AS STRING) AS tmdb_movie_title
+      , CAST(tmdb_vote_avg AS NUMERIC) AS tmdb_vote_avg
+      , CAST(tmdb_vote_count AS INTEGER) AS tmdb_vote_count
+      , CAST(status AS STRING) AS status
+      , CAST(release_date AS DATE) AS release_date
+      , CAST(revenue AS NUMERIC) AS revenue
+      , CAST(runtime AS INTEGER) AS runtime
+      , CAST(budget AS NUMERIC) AS budget
+      , CAST(imdb_movie_id AS STRING) AS imdb_movie_id
+      , CAST(tmdb_popularity AS NUMERIC) AS tmdb_popularity
+      , CAST(tmdb_genres AS STRING) AS tmdb_genres
+  FROM rename_column
+)
+
 SELECT *
-FROM rename_column
+FROM cast_type
