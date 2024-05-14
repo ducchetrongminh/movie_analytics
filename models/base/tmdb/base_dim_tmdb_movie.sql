@@ -37,6 +37,23 @@ WITH source AS (
   FROM rename_column
 )
 
+, handle_null AS (
+  SELECT * 
+    EXCEPT (
+      tmdb_genres
+      , runtime
+      , budget
+      , tmdb_vote_avg
+      , imdb_movie_id
+    )
+    , NULLIF(tmdb_genres, '') AS tmdb_genres
+    , NULLIF(runtime, 0) AS runtime
+    , NULLIF(budget, 0) AS budget
+    , NULLIF(tmdb_vote_avg, 0) AS tmdb_vote_avg
+    , NULLIF(imdb_movie_id, '') AS imdb_movie_id
+  FROM cast_type
+)
+
 SELECT
   -- KEY
   tmdb_movie_id
@@ -56,4 +73,4 @@ SELECT
   , tmdb_popularity
   -- OTHER DIM
   , imdb_movie_id
-FROM cast_type
+FROM handle_null
