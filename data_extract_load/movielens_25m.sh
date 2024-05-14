@@ -1,3 +1,7 @@
+# Create dataset movielens_25m and upload data
+# To run this script, on Google Cloud Platform, Activate Cloud Shell
+# Activate Cloud Shell: https://cloud.google.com/shell/docs/using-cloud-shell#start_a_new_session
+
 curl -O 'http://files.grouplens.org/datasets/movielens/ml-25m.zip'
 unzip ml-25m.zip
 
