@@ -37,6 +37,10 @@ models:
       role_playing_dimensions:
         +materialized: view
 
+    base: 
+      +materialized: view
+      +schema: base
+
     staging: 
       +materialized: view
       +schema: staging
