@@ -42,5 +42,15 @@ WITH source AS (
   FROM cast_type
 )
 
-SELECT *
+SELECT
+  imdb_movie_id
+  , title
+
+  , title_type
+  , imdb_genres
+
+  , start_year
+  , end_year
+  
+  , runtime_minutes
 FROM handle_null
