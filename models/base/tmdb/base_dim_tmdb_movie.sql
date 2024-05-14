@@ -12,7 +12,7 @@ WITH source AS (
     , status
     , release_date
     , revenue
-    , runtime
+    , runtime AS runtime_minutes
     , budget
     , imdb_id AS imdb_movie_id
     , popularity AS tmdb_popularity
@@ -29,7 +29,7 @@ WITH source AS (
       , CAST(status AS STRING) AS status
       , CAST(release_date AS DATE) AS release_date
       , CAST(revenue AS NUMERIC) AS revenue
-      , CAST(runtime AS INTEGER) AS runtime
+      , CAST(runtime_minutes AS INTEGER) AS runtime_minutes
       , CAST(budget AS NUMERIC) AS budget
       , CAST(imdb_movie_id AS STRING) AS imdb_movie_id
       , CAST(tmdb_popularity AS NUMERIC) AS tmdb_popularity
@@ -41,13 +41,13 @@ WITH source AS (
   SELECT * 
     EXCEPT (
       tmdb_genres
-      , runtime
+      , runtime_minutes
       , budget
       , tmdb_vote_avg
       , imdb_movie_id
     )
     , COALESCE(NULLIF(tmdb_genres, ''), 'Undefined') AS tmdb_genres
-    , NULLIF(runtime, 0) AS runtime
+    , NULLIF(runtime_minutes, 0) AS runtime_minutes
     , NULLIF(budget, 0) AS budget
     , NULLIF(tmdb_vote_avg, 0) AS tmdb_vote_avg
     , COALESCE(NULLIF(imdb_movie_id, ''), 'UNDEFINED') AS imdb_movie_id
@@ -65,7 +65,7 @@ SELECT
   -- DATE
   , release_date
   -- NUMBER ATTRIBUTES
-  , runtime
+  , runtime_minutes
   , revenue
   , budget
   , tmdb_vote_avg
