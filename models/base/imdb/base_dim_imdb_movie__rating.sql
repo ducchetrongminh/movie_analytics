@@ -21,5 +21,9 @@ WITH source AS (
   FROM rename_column
 )
 
-SELECT *
+SELECT
+  imdb_movie_id
+
+  , imdb_rating_avg
+  , imdb_rating_count
 FROM cast_type
