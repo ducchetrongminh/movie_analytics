@@ -5,26 +5,26 @@ WITH source AS (
 
 , rename_column AS (
   SELECT 
-    movieId AS movielens_id
+    movieId AS movielens_movie_id
     , genres AS movielens_genres
   FROM source 
 )
 
 , cast_type AS (
   SELECT 
-    CAST(movielens_id AS INTEGER) AS movielens_id
+    CAST(movielens_movie_id AS INTEGER) AS movielens_movie_id
     , CAST(movielens_genres AS STRING) AS movielens_genres
   FROM rename_column
 )
 
 , handle_null AS (
   SELECT 
-    movielens_id 
+    movielens_movie_id 
     , COALESCE(NULLIF(movielens_genres, '(no genres listed)'), 'Undefined') AS movielens_genres
   FROM cast_type
 )
 
 SELECT 
-  movielens_id
+  movielens_movie_id
   , movielens_genres
 FROM handle_null
