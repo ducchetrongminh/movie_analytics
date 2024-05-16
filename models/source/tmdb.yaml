@@ -10,3 +10,24 @@ sources:
       - name: tmdb_movie_dataset
         description: >
           Source of the dataset: https://zoomcharts.com/en/microsoft-power-bi-custom-visuals/challenges/onyx-data-april-2024
+
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+          - name: title
+            tests:
+              - not_null
+          - name: status
+            tests:
+              - not_null
+          - name: popularity
+            tests:
+              - not_null
+          - name: vote_average
+            tests:
+              - not_null
+          - name: vote_count
+            tests:
+              - not_null
