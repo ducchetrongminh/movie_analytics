@@ -3,6 +3,8 @@ WITH cleanse AS (
   FROM {{ ref("base_dim_imdb_movie") }}
   WHERE 
     title IS NOT NULL -- 20240516 remove 4 cases that title is null
+    -- These seems like the type of movies/tv series
+    AND title_type IN ('movie', 'tvMiniSeries', 'tvMovie', 'tvSeries')
 )
 
 , join_data AS (
