@@ -9,10 +9,65 @@ sources:
 
     tables: 
       - name: name_basics
+        columns:
+          - name: nconst
+            tests:
+              - unique
+              - not_null
+          - name: primary_name
+            tests:
+              - not_null
+
       - name: reviews
+
       - name: title_akas
+
       - name: title_basics
+        columns:
+          - name: tconst
+            tests:
+              - unique
+              - not_null
+          - name: primary_title
+            tests:
+              - not_null
+          - name: title_type
+            tests:
+              - not_null
+
       - name: title_crew
+
       - name: title_episode
+
       - name: title_principals
+        tests:
+          - unique:
+              column_name: CONCAT(tconst, '-', ordering)
+          # - unique: # 1 person can have multiple roles in a movie
+          #     column_name: CONCAT(tconst, '-', nconst)
+        columns:
+          - name: tconst
+            tests:
+              - not_null 
+          - name: ordering
+            tests:
+              - not_null 
+          - name: nconst
+            tests:
+              - not_null 
+          - name: category
+            tests:
+              - not_null 
+
       - name: title_ratings
+        columns:
+          - name: tconst
+            tests:
+              - unique
+              - not_null
+          - name: average_rating
+            tests:
+              - not_null 
+          - name: num_votes
+            tests:
+              - not_null 
