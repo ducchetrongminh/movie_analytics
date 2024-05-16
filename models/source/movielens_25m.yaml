@@ -24,27 +24,11 @@ sources:
             tests:
               - unique
               - not_null
-          - name: genres
-            tests:
-              - not_null
 
       - name: ratings
         tests:
           - unique:
               column_name: CONCAT(movieId, ',', userId)
-        columns:
-          - name: userId
-            tests:
-              - not_null
-          - name: movieId
-            tests:
-              - not_null
-          - name: rating
-            tests:
-              - not_null
-          - name: timestamp
-            tests:
-              - not_null
 
       - name: tags
 

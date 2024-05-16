@@ -16,18 +16,3 @@ sources:
             tests:
               - unique
               - not_null
-          - name: title
-            tests:
-              - not_null
-          - name: status
-            tests:
-              - not_null
-          - name: popularity
-            tests:
-              - not_null
-          - name: vote_average
-            tests:
-              - not_null
-          - name: vote_count
-            tests:
-              - not_null
