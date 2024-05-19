@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: fact_movielens_rating
+    description: >
+      Movielens rating.
+
+    columns:
+      - name: movie_key
+        tests:
+          - not_null
+
+      - name: movielens_user_id
+        tests:
+          - not_null
+
+      - name: rating
+        tests:
+          - not_null
+
+      - name: rated_date
+        tests:
+          - not_null
