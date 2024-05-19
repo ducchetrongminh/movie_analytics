@@ -29,6 +29,8 @@ WITH join_data AS (
     , dim_tmdb_movie.tmdb_rating_avg
     , dim_tmdb_movie.tmdb_rating_count
     , dim_tmdb_movie.tmdb_popularity
+    , dim_movielens_movie.movielens_rating_avg
+    , dim_movielens_movie.movielens_rating_count
 
   FROM {{ ref('stg_dim_movielens_movie') }} AS dim_movielens_movie
   FULL OUTER JOIN {{ ref('stg_dim_tmdb_movie') }} AS dim_tmdb_movie
@@ -52,12 +54,12 @@ WITH join_data AS (
 , enrich AS (
 
   {% set RATING_COUNT %}
-    (COALESCE(imdb_rating_count, 0) + COALESCE(tmdb_rating_count, 0))
+    (COALESCE(imdb_rating_count, 0) + COALESCE(tmdb_rating_count, 0) + COALESCE(movielens_rating_count, 0))
   {% endset %}
   
   SELECT 
     *
-    , (COALESCE(imdb_rating_avg * imdb_rating_count, 0) + COALESCE(tmdb_rating_avg * tmdb_rating_count, 0)) / NULLIF({{ RATING_COUNT }}, 0) 
+    , (COALESCE(imdb_rating_avg * imdb_rating_count, 0) + COALESCE(tmdb_rating_avg * tmdb_rating_count, 0) + COALESCE(movielens_rating_avg * movielens_rating_count, 0)) / NULLIF({{ RATING_COUNT }}, 0) 
       AS overall_rating_avg 
     , {{ RATING_COUNT }} AS overall_rating_count 
   FROM add_key
@@ -89,6 +91,8 @@ SELECT
   , tmdb_rating_avg
   , tmdb_rating_count
   , tmdb_popularity
+  , movielens_rating_avg
+  , movielens_rating_count
   -- FOREIGN DIM
   , movielens_movie_id
   , tmdb_movie_id
