@@ -10,6 +10,7 @@ WITH join_data AS (
 
 SELECT 
   movielens_movie_id
+  , title
   , movielens_genres
 
   , imdb_movie_id

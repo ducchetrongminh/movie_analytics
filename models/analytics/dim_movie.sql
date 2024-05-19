@@ -4,7 +4,12 @@ SELECT
   , dim_tmdb_movie.tmdb_movie_id
   , dim_imdb_movie.imdb_movie_id
   -- TITLE
-  , COALESCE(dim_imdb_movie.title, dim_tmdb_movie.title) AS title
+  , COALESCE(
+      dim_imdb_movie.title
+      , dim_tmdb_movie.title
+      -- Movielens title is at last, because it contains release year
+      , dim_movielens_movie.title
+    ) AS title
   -- ATTRIBUTES
   , dim_imdb_movie.title_type
   , dim_imdb_movie.imdb_genres
