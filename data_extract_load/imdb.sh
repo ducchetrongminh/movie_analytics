@@ -39,7 +39,7 @@ bq load --source_format=CSV --field_delimiter=tab \
   --autodetect --skip_leading_rows=1 --allow_quoted_newlines \
   imdb.title_episode title.episode.tsv.gz
 
-bq load --source_format=CSV --field_delimiter=tab \
+bq load --source_format=CSV --field_delimiter=tab  --quote= \
   --autodetect --skip_leading_rows=1 --allow_quoted_newlines \
   imdb.title_principals title.principals.tsv.gz
 
