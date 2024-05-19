@@ -17,6 +17,12 @@ sources:
             tests:
               - unique
               - not_null
+          - name: imdbId
+            tests:
+              - unique
+          - name: tmdbId
+            tests:
+              - unique
 
       - name: movies
         columns:
