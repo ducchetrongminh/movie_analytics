@@ -59,7 +59,8 @@ WITH join_data AS (
   
   SELECT 
     *
-    , (COALESCE(imdb_rating_avg * imdb_rating_count, 0) + COALESCE(tmdb_rating_avg * tmdb_rating_count, 0) + COALESCE(movielens_rating_avg * movielens_rating_count, 0)) / NULLIF({{ RATING_COUNT }}, 0) 
+    -- Note that we convert Movielens rating from 5 to 10 scale
+    , (COALESCE(imdb_rating_avg * imdb_rating_count, 0) + COALESCE(tmdb_rating_avg * tmdb_rating_count, 0) + COALESCE(movielens_rating_avg*2 * movielens_rating_count, 0)) / NULLIF({{ RATING_COUNT }}, 0) 
       AS overall_rating_avg 
     , {{ RATING_COUNT }} AS overall_rating_count 
   FROM add_key
