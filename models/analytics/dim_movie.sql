@@ -38,12 +38,21 @@ WITH join_data AS (
       = dim_imdb_movie.imdb_movie_id
 )
 
+, add_key AS (
+  SELECT 
+    *
+    , FARM_FINGERPRINT(COALESCE(
+      'IMDB' || imdb_movie_id
+      , 'TMDB' || tmdb_movie_id
+      , 'MOVIELENS' || movielens_movie_id
+    )) AS movie_key
+  FROM join_data
+)
+
 
 SELECT 
   -- KEY
-  movielens_movie_id
-  , tmdb_movie_id
-  , imdb_movie_id
+  movie_key
   -- TITLE
   , title
   -- ATTRIBUTES
@@ -64,4 +73,8 @@ SELECT
   , tmdb_rating_avg
   , tmdb_rating_count
   , tmdb_popularity
-FROM join_data
+  -- FOREIGN DIM
+  , movielens_movie_id
+  , tmdb_movie_id
+  , imdb_movie_id
+FROM add_key
