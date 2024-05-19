@@ -8,7 +8,7 @@ WITH cleanse AS (
 , add_key AS (
   SELECT 
     *
-    , FARM_FINGERPRINT(imdb_person_id) AS person_key
+    , imdb_person_id AS person_key
   FROM cleanse
 )
 
