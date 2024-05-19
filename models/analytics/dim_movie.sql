@@ -25,8 +25,8 @@ SELECT
   , dim_tmdb_movie.tmdb_popularity
 
 FROM {{ ref('stg_dim_movielens_movie') }} AS dim_movielens_movie
-JOIN {{ ref('stg_dim_tmdb_movie') }} AS dim_tmdb_movie
+FULL OUTER JOIN {{ ref('stg_dim_tmdb_movie') }} AS dim_tmdb_movie
   USING (tmdb_movie_id)
-JOIN {{ ref('stg_dim_imdb_movie') }} AS dim_imdb_movie 
+FULL OUTER JOIN {{ ref('stg_dim_imdb_movie') }} AS dim_imdb_movie 
   ON COALESCE(dim_movielens_movie.imdb_movie_id, dim_tmdb_movie.imdb_movie_id)
     = dim_imdb_movie.imdb_movie_id
