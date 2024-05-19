@@ -39,7 +39,7 @@ models:
 
     base: 
       +materialized: view
-      +schema: base
+      +schema: staging
 
     staging: 
       +materialized: view
