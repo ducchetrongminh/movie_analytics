@@ -49,6 +49,20 @@ WITH join_data AS (
   FROM join_data
 )
 
+, enrich AS (
+
+  {% set RATING_COUNT %}
+    (COALESCE(imdb_rating_count, 0) + COALESCE(tmdb_rating_count, 0))
+  {% endset %}
+  
+  SELECT 
+    *
+    , (COALESCE(imdb_rating_avg * imdb_rating_count, 0) + COALESCE(tmdb_rating_avg * tmdb_rating_count, 0)) / NULLIF({{ RATING_COUNT }}, 0) 
+      AS overall_rating_avg 
+    , {{ RATING_COUNT }} AS overall_rating_count 
+  FROM add_key
+)
+
 
 SELECT 
   -- KEY
@@ -68,6 +82,8 @@ SELECT
   , runtime_minutes
   , budget
   , revenue
+  , overall_rating_avg
+  , overall_rating_count
   , imdb_rating_avg
   , imdb_rating_count
   , tmdb_rating_avg
@@ -77,4 +93,4 @@ SELECT
   , movielens_movie_id
   , tmdb_movie_id
   , imdb_movie_id
-FROM add_key
+FROM enrich
