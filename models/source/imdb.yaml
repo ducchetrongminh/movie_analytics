@@ -2,7 +2,6 @@ version: 2
 
 sources:
   - name: imdb
-    database: bigquery-public-data
     schema: imdb
     description: >
       Raw data from IMDB https://developer.imdb.com/non-commercial-datasets/
