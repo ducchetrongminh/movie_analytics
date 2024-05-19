@@ -12,15 +12,24 @@ WITH
 --   )
 -- )
 
-enrich AS (
+add_key AS (
+  SELECT
+    fact_movielens_rating.*
+    , dim_movie.movie_key
+  FROM {{ ref('base_fact_movielens_rating') }} AS fact_movielens_rating
+  LEFT JOIN {{ ref('dim_movie') }} AS dim_movie 
+    USING (movielens_movie_id)
+)
+
+, enrich AS (
   SELECT 
     *
     , DATE(TIMESTAMP_SECONDS(rated_at_unix)) AS rated_date
-  FROM {{ ref('base_fact_movielens_rating') }}
+  FROM add_key
 )
 
 SELECT 
-  movielens_movie_id
+  movie_key
   , movielens_user_id
   , rating
   , rated_date
