@@ -1,4 +1,4 @@
 - Are movie links from movielens good enough? If not, how to map between different platform?
-- Consolidate movielens duplicated movies (movielens_25m.movies test unique tmdbId)
+- Consolidate movielens duplicated movies (source_unique_movielens_links_tmdbId)
 - To check not_null_dim_movie_overall_rating_avg
 - To check unique_dim_movie_movie_key 
