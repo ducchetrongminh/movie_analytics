@@ -8,16 +8,31 @@ WITH source AS (
     -- KEY
     tconst AS imdb_movie_id
     -- NAME
-    , primary_title AS title
+    , primaryTitle AS title
     -- DIMENSION
-    , title_type
+    , titleType AS title_type
     , genres AS imdb_genres
     -- DATETIME
-    , start_year
-    , end_year
+    , startYear AS start_year
+    , endYear AS end_year
     -- NUMBER ATTRIBUTES
-    , runtime_minutes
+    , runtimeMinutes AS runtime_minutes
   FROM source
+)
+
+, handle_null_tsv AS (
+  SELECT 
+    imdb_movie_id
+    , title
+
+    , title_type
+    , NULLIF(imdb_genres, '\\N') AS imdb_genres
+
+    , NULLIF(start_year, '\\N') AS start_year
+    , NULLIF(end_year, '\\N') AS end_year
+
+    , NULLIF(runtime_minutes, '\\N') AS runtime_minutes
+  FROM rename_column
 )
 
 , cast_type AS (
@@ -29,7 +44,7 @@ WITH source AS (
       , CAST(start_year AS INTEGER) AS start_year
       , CAST(end_year AS INTEGER) AS end_year
       , CAST(runtime_minutes AS INTEGER) AS runtime_minutes
-  FROM rename_column
+  FROM handle_null_tsv
 )
 
 , handle_null AS (

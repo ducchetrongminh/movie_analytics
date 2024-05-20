@@ -8,8 +8,8 @@ WITH source AS (
     -- KEY
     tconst AS imdb_movie_id
     -- NUMBER ATTRIBUTES
-    , average_rating AS imdb_rating_avg
-    , num_votes AS imdb_rating_count
+    , averageRating AS imdb_rating_avg
+    , numVotes AS imdb_rating_count
   FROM source
 )
 
