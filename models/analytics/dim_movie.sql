@@ -8,7 +8,6 @@ WITH join_data AS (
     , COALESCE(
         dim_imdb_movie.title
         , dim_tmdb_movie.title
-        -- Movielens title is at last, because it contains release year
         , dim_movielens_movie.title
       ) AS title
     -- ATTRIBUTES
