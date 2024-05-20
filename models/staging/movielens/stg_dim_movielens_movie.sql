@@ -2,7 +2,7 @@ WITH extract_year AS (
   SELECT 
     *
     , REGEXP_REPLACE(movielens_title, r'(\s\([0-9]+\))$', '') AS title
-    , REGEXP_EXTRACT(movielens_title, r'\s\(([0-9]+)\)$') AS release_year
+    , CAST(REGEXP_EXTRACT(movielens_title, r'\s\(([0-9]+)\)$') AS INTEGER) AS release_year
   FROM {{ ref('base_dim_movielens_movie') }}
 )
 
