@@ -1,10 +1,10 @@
 version: 2
 
 sources:
-  - name: movielens_25m
-    schema: movielens_25m
+  - name: movielens
+    schema: movielens
     description: >
-      Raw data from Movielens https://grouplens.org/datasets/movielens/
+      Raw data from Movielens https://grouplens.org/datasets/movielens/latest/. As per the README file (https://files.grouplens.org/datasets/movielens/ml-latest-README.html), this dataset was generated on July 20, 2023.
 
     tables: 
       - name: genome_scores
