@@ -1,6 +1,6 @@
 WITH source AS (
   SELECT *
-  FROM {{ source('movielens_25m', 'links') }}
+  FROM {{ source('movielens', 'links') }}
 )
 
 , rename_column AS (
