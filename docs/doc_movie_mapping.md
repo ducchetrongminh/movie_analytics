@@ -128,9 +128,14 @@ WHERE dim_tmdb_movie.title != dim_imdb_movie.title
 ORDER BY tmdb_rating_count DESC
 ```
 
-From the result, we can expect that the linking between TMDB and TMDB is good. We also expect that about 25% will not be matched based on the title.
+From the result, we can expect that the linking between TMDB and IMDB is good. We also expect that about 25% can not be matched based on the title.
 
 Repeat the test for linking between Movielens and IMDB, Movielens and TMDB.
+
+Results for linking between Movielens and IMDB:
+- 20% of titles are not matched (7k4 titles)
+- Deep dive, we found that many Movielens titles are in reversed order (e.g. `Dark Knight Rises, The` instead of `The Dark Knight Rises`). We fixed this issue at model `stg_dim_movielens_movie` at [this commit](https://github.com/ducchetrongminh/movie_analytics/pull/8/commits/5d76bd47828d3fb00dd20424c089842ccd6dd726)
+- Other cases are due to the format of name (e.g. `(500) Days of Summer vs. 500 Days of Summer`)
 
 ```sql
 SELECT
@@ -151,10 +156,5 @@ JOIN dim_imdb_movie USING (imdb_movie_id)
 WHERE dim_movielens_movie.title != dim_imdb_movie.title
 ORDER BY movielens_rating_count DESC
 ```
-
-Results for linking between Movielens and IMDB:
-- 20% of titles are not matched (7k4 titles)
-- Deep dive, we found that many Movielens titles are in reversed order (e.g. `Dark Knight Rises, The` instead of `The Dark Knight Rises`)
-- Other cases are due to the format of name (e.g. `(500) Days of Summer vs. 500 Days of Summer`)
 
 </details>
