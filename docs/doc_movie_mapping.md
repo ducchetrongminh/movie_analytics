@@ -134,7 +134,8 @@ Repeat the test for linking between Movielens and IMDB, Movielens and TMDB.
 
 Results for linking between Movielens and IMDB:
 - 20% of titles are not matched (7k4 titles)
-- Deep dive, we found that many Movielens titles are in reversed order (e.g. `Dark Knight Rises, The` instead of `The Dark Knight Rises`). We fixed this issue at model `stg_dim_movielens_movie` at [this commit](https://github.com/ducchetrongminh/movie_analytics/pull/8/commits/5d76bd47828d3fb00dd20424c089842ccd6dd726)
+- Deep dive, we found that many Movielens titles are in reversed order (e.g. `Dark Knight Rises, The` instead of `The Dark Knight Rises`). We fixed this issue at model `stg_dim_movielens_movie` at [this commit](https://github.com/ducchetrongminh/movie_analytics/pull/8/commits/5d76bd47828d3fb00dd20424c089842ccd6dd726).
+- After fixing the issue, still 19.6% of titles are not matched (6k9). 
 - Other cases are due to the format of name (e.g. `(500) Days of Summer vs. 500 Days of Summer`)
 
 ```sql
