@@ -1,0 +1,57 @@
+table 'TMDB Movie Prod Country'
+	lineageTag: 05a8ee5d-3238-4a96-8809-4bb1d5ced722
+
+	column 'Prod. Country'
+		dataType: string
+		lineageTag: 0e8d4e4e-6c88-4dbf-af4c-98f5ed1c5c84
+		summarizeBy: none
+		sourceColumn: Prod. Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'TMDB ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: e6e58f9b-a482-422d-a7da-a1d635508f06
+		summarizeBy: none
+		sourceColumn: TMDB ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Prod. Country Group'
+		dataType: string
+		lineageTag: 71a23544-184e-4a2f-bfdd-2b3b0b0eeb60
+		summarizeBy: none
+		sourceColumn: Prod. Country Group
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'TMDB Movie Prod Country' = m
+		mode: import
+		source = ```
+				let
+				    Source = #"TMDB Movie",
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"TMDB ID", "Prod. Countries"}),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Removed Other Columns", "Prod. Countries", Splitter.SplitTextByDelimiter(", ", QuoteStyle.Csv), {"production_countries.1", "production_countries.2", "production_countries.3", "production_countries.4", "production_countries.5", "production_countries.6", "production_countries.7", "production_countries.8", "production_countries.9", "production_countries.10", "production_countries.11", "production_countries.12"}),
+				    #"Unpivoted Other Columns" = Table.UnpivotOtherColumns(#"Split Column by Delimiter", {"TMDB ID"}, "Attribute", "Value"),
+				    #"Removed Columns" = Table.RemoveColumns(#"Unpivoted Other Columns",{"Attribute"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns",{{"Value", "Prod. Country"}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each ([Prod. Country] <> "" and [Prod. Country] <> "N/A")),
+				    #"Added Custom" = let
+				  CountriesInGroup = {"US", "UK", "China", "Germany", "France", "Canada", "Japan", "India", "Hong Kong", "Australia", "South Korea", "Thailand", "Vietnam"},
+				  AddCountryGroup = 
+				    Table.AddColumn(
+				      #"Filtered Rows",
+				      "Prod. Country Group",
+				      each if List.Contains(CountriesInGroup, [Prod. Country]) then [Prod. Country] else "Others"
+				    )
+				in
+				  AddCountryGroup
+				in
+				    #"Added Custom"
+				```
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

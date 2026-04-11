@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "8b9eb1848a493176a8a9",
+  "position": {
+    "x": 16,
+    "y": 410,
+    "z": 1000,
+    "height": 310,
+    "width": 1264,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TMDB Movie"
+                    }
+                  },
+                  "Property": "Vote # Q3"
+                }
+              },
+              "queryRef": "TMDB Movie.Vote # Q3",
+              "nativeQueryRef": "Vote # Q3"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
