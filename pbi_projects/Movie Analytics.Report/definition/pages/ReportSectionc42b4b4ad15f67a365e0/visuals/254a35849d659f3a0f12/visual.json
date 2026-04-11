@@ -1,0 +1,71 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "254a35849d659f3a0f12",
+  "position": {
+    "x": 16,
+    "y": 0,
+    "z": 0,
+    "height": 400,
+    "width": 1264,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "Histogram1445664487616",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TMDB Movie"
+                    }
+                  },
+                  "Property": "Vote #"
+                }
+              },
+              "queryRef": "TMDB Movie.Vote #",
+              "nativeQueryRef": "Vote #"
+            }
+          ]
+        },
+        "Frequency": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TMDB Movie"
+                    }
+                  },
+                  "Property": "Count Movies"
+                }
+              },
+              "queryRef": "TMDB Movie.Count Movies",
+              "nativeQueryRef": "Count Movies"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "bins": {
+              "expr": {
+                "Literal": {
+                  "Value": "20D"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

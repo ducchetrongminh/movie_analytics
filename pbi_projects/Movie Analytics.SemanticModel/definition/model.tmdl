@@ -1,0 +1,21 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["TMDB Movie","TMDB Movie Genre","TMDB Movie Prod Country"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'TMDB Movie'
+ref table DateTableTemplate_52230b26-aca4-419a-9c84-4d274d690526
+ref table 'TMDB Movie Genre'
+ref table 'TMDB Movie Prod Country'
+
+ref cultureInfo en-US
+

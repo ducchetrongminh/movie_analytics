@@ -1,0 +1,217 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "eac6b0f0a859f3085a54",
+  "position": {
+    "x": 16,
+    "y": 0,
+    "z": 0,
+    "height": 720,
+    "width": 1264,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TMDB Movie Prod Country"
+                    }
+                  },
+                  "Property": "Prod. Country"
+                }
+              },
+              "queryRef": "TMDB Movie Prod Country.Prod. Country",
+              "nativeQueryRef": "Prod. Country"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "TMDB Movie"
+                        }
+                      },
+                      "Property": "Revenue"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(TMDB Movie.Revenue)",
+              "nativeQueryRef": "Sum of Revenue"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "TMDB Movie"
+                    }
+                  },
+                  "Property": "Count Movies"
+                }
+              },
+              "queryRef": "TMDB Movie.Count Movies",
+              "nativeQueryRef": "Count Movies"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "TMDB Movie"
+                        }
+                      },
+                      "Property": "Vote #"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(TMDB Movie.Vote #)",
+              "nativeQueryRef": "Sum of Vote #"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "TMDB Movie"
+                      }
+                    },
+                    "Property": "Revenue"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "Filterb2df776a61ab23cec4ab",
+        "ordinal": 0,
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TMDB Movie"
+              }
+            },
+            "Property": "Count Movies"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "Filter78f56931972e6bcfd423",
+        "ordinal": 1,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TMDB Movie Prod Country"
+              }
+            },
+            "Property": "Prod. Country"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "Filtere3efab648166cc4bb73f",
+        "ordinal": 2,
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TMDB Movie"
+              }
+            },
+            "Property": "Release Year"
+          }
+        },
+        "type": "Advanced",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "t",
+              "Entity": "TMDB Movie",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "Comparison": {
+                  "ComparisonKind": 1,
+                  "Left": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Source": "t"
+                        }
+                      },
+                      "Property": "Release Year"
+                    }
+                  },
+                  "Right": {
+                    "Literal": {
+                      "Value": "2000L"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      },
+      {
+        "name": "Filterf059417c928d69999702",
+        "ordinal": 3,
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "TMDB Movie"
+                  }
+                },
+                "Property": "Revenue"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      }
+    ],
+    "filterSortOrder": "Custom"
+  }
+}

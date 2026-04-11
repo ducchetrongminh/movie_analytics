@@ -1,0 +1,53 @@
+cultureInfo en-US
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "tmdb_movie.release_year": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "TMDB Movie",
+			          "ConceptualProperty": "Release Year"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Release": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "tmdb_movie.runtime_min_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "TMDB Movie",
+			          "ConceptualProperty": "Runtime Min."
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Runtime": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+

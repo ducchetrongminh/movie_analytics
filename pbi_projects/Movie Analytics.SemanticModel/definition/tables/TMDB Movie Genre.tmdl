@@ -1,0 +1,39 @@
+table 'TMDB Movie Genre'
+	lineageTag: 5ee59338-2acd-4eef-9e64-9f587c53888d
+
+	column Genre
+		dataType: string
+		lineageTag: 6afeb00d-6b53-47fc-8040-7a77059a9dca
+		summarizeBy: none
+		sourceColumn: Genre
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'TMDB ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 233adbf8-dc1c-44c0-86ea-b11387cfceb7
+		summarizeBy: none
+		sourceColumn: TMDB ID
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'TMDB Movie Genre' = m
+		mode: import
+		source =
+				let
+				    Source = #"TMDB Movie",
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"TMDB ID", "Genres"}),
+				    #"Split Column by Delimiter" = Table.SplitColumn(#"Removed Other Columns", "Genres", Splitter.SplitTextByDelimiter(", ", QuoteStyle.Csv), {"genres.1", "genres.2", "genres.3", "genres.4", "genres.5"}),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Split Column by Delimiter",{{"genres.1", type text}, {"genres.2", type text}, {"genres.3", type text}, {"genres.4", type text}, {"genres.5", type text}}),
+				    #"Unpivoted Other Columns" = Table.UnpivotOtherColumns(#"Changed Type", {"TMDB ID"}, "Attribute", "Value"),
+				    #"Removed Columns" = Table.RemoveColumns(#"Unpivoted Other Columns",{"Attribute"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Columns",{{"Value", "Genre"}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each ([Genre] <> "" and [Genre] <> "N/A"))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

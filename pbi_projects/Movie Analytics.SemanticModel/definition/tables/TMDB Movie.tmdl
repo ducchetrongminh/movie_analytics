@@ -1,0 +1,209 @@
+table 'TMDB Movie'
+	lineageTag: e5ef1c40-773c-4fe5-8cd4-e1afe6cdcf36
+
+	measure 'Count Movies' = COUNTROWS('TMDB Movie')
+		formatString: 0
+		lineageTag: d8f9d9cc-f4e2-4532-bdb3-693ccd91bf18
+
+	measure 'Vote # Q3' = PERCENTILE.EXC('TMDB Movie'[Vote #], .9)
+		lineageTag: 85cae9db-e450-485b-8921-269ea8038812
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'TMDB ID'
+		dataType: int64
+		formatString: 0
+		lineageTag: 91f074d2-9d6d-4894-83c9-0c82019794a0
+		summarizeBy: none
+		sourceColumn: TMDB ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: c369874a-9785-4fb3-9835-0059d1b09d6e
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vote Avg.'
+		dataType: double
+		lineageTag: 7d147641-3c51-4124-a006-56c63cef88d3
+		summarizeBy: sum
+		sourceColumn: Vote Avg.
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Vote #'
+		dataType: int64
+		formatString: 0
+		lineageTag: 71f1ffd2-c838-4a23-b0eb-2cf59f923595
+		summarizeBy: sum
+		sourceColumn: Vote #
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation __PBI_SemanticLinks = [{"LinkTarget":{"TableName":"TMDB Movie","TableItemName":"Vote # (bins)","ObjectType":4},"LinkType":"UsedInGroup"}]
+
+	column Revenue
+		dataType: int64
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: bc362297-b5c9-4ea8-8ae7-cd80fc9f349b
+		summarizeBy: sum
+		sourceColumn: Revenue
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Runtime Min.'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7cad8d6b-2682-4dac-b6df-6df9b18b5533
+		summarizeBy: sum
+		sourceColumn: Runtime Min.
+
+		annotation SummarizationSetBy = Automatic
+
+	column Budget
+		dataType: int64
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: f93db7df-6b82-4af1-b738-df232b898785
+		summarizeBy: sum
+		sourceColumn: Budget
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Original Language'
+		dataType: string
+		lineageTag: 6c46eb2f-a18d-4083-93f1-61e4064c6761
+		summarizeBy: none
+		sourceColumn: Original Language
+
+		annotation SummarizationSetBy = Automatic
+
+	column Popularity
+		dataType: double
+		lineageTag: ccfcce5b-400b-46db-bea3-b7d586136039
+		summarizeBy: sum
+		sourceColumn: Popularity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Genres
+		dataType: string
+		lineageTag: 00bec2cb-0012-408e-9ebf-23605b25be7c
+		summarizeBy: none
+		sourceColumn: Genres
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Prod. Countries'
+		dataType: string
+		lineageTag: 2f282ce5-8100-4e2d-b4aa-a473cf7c1c33
+		summarizeBy: none
+		sourceColumn: Prod. Countries
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vote # (bins)' =
+			IF(
+				ISBLANK('TMDB Movie'[Vote #]),
+				BLANK(),
+				INT('TMDB Movie'[Vote #] / 10.0) * 10.0
+			)
+		dataType: int64
+		formatString: 0
+		lineageTag: b1604ec0-3abd-4efd-962a-4abb9b16122c
+		summarizeBy: none
+
+		extendedProperty GroupingMetadata =
+				{
+				  "version": 0,
+				  "groupedColumns": [
+				    {
+				      "Column": {
+				        "Expression": {
+				          "SourceRef": {
+				            "Entity": "TMDB Movie"
+				          }
+				        },
+				        "Property": "Vote #"
+				      }
+				    }
+				  ],
+				  "binningMetadata": {
+				    "binSize": {
+				      "value": 10.0,
+				      "unit": 0
+				    }
+				  }
+				}
+
+		annotation GroupingDesignState = {"Version":0,"Sources":[{"Name":"t","Entity":"TMDB Movie"}],"GroupedColumns":[{"Column":{"Expression":{"SourceRef":{"Source":"t"}},"Property":"Vote #"}}],"BinItem":{"Expression":{"Floor":{"Expression":{"Column":{"Expression":{"SourceRef":{"Source":"t"}},"Property":"Vote #"}},"Size":10.0}}}}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Runtime Category'
+		dataType: string
+		lineageTag: 08bc5803-116b-47eb-8b5a-3609a7ea9862
+		summarizeBy: none
+		sourceColumn: Runtime Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Release Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d08775c-dd23-46ce-949f-b557e8315bef
+		summarizeBy: sum
+		sourceColumn: Release Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Release Year Cate.'
+		dataType: string
+		lineageTag: 8d57a7ed-3684-4dfa-98da-b411f985a78a
+		summarizeBy: none
+		sourceColumn: Release Year Cate.
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Vote # Group'
+		dataType: string
+		lineageTag: 8d5bf858-4d37-4436-bafa-4b4f64e870c6
+		summarizeBy: none
+		sourceColumn: Vote # Group
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'TMDB Movie' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\DATASETS\Movie\TMDB_Movies_dataset.csv"),[Delimiter=",", Columns=25, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Base - Select Columns" = Table.RemoveColumns(#"Promoted Headers",{"imdb_id", "original_title", "overview", "tagline", "production_companies", "spoken_languages", "cast", "director", "director_of_photography", "writers", "producers", "music_composer"}),
+				    #"Base - Rename Columns" = Table.RenameColumns(#"Base - Select Columns",{{"budget", "Budget"}, {"genres", "Genres"}, {"original_language", "Original Language"}, {"popularity", "Popularity"}, {"production_countries", "Prod. Countries"}, {"release_date", "Release Date"}, {"revenue", "Revenue"}, {"runtime", "Runtime Min."}, {"title", "Title"}, {"vote_average", "Vote Avg."}, {"vote_count", "Vote #"}, {"id", "TMDB ID"}, {"status", "Status"}}),
+				    #"Base - Change Type" = Table.TransformColumnTypes(#"Base - Rename Columns",{{"TMDB ID", Int64.Type}, {"Title", type text}, {"Vote Avg.", type number}, {"Vote #", Int64.Type}, {"Status", type text}, {"Release Date", type date}, {"Revenue", Int64.Type}, {"Runtime Min.", Int64.Type}, {"Budget", Int64.Type}, {"Original Language", type text}, {"Popularity", type number}, {"Genres", type text}, {"Prod. Countries", type text}}),
+				    #"Null - Handle Budget" = Table.ReplaceValue(#"Base - Change Type",0,null,Replacer.ReplaceValue,{"Budget"}),
+				    #"Cleanse - Keep Released only" = Table.SelectRows(#"Null - Handle Budget", each ([Status] = "Released")),
+				    #"Cleanse - Keep Vote # > 9" = Table.SelectRows(#"Cleanse - Keep Released only", each [#"Vote #"] > 9),
+				    #"Cleanse - Remove null date" = Table.SelectRows(#"Cleanse - Keep Vote # > 9", each [Release Date] <> null and [Release Date] <> ""),
+				    #"Cleanse - Shorten US" = Table.ReplaceValue(#"Cleanse - Remove null date","United States of America","US",Replacer.ReplaceText,{"Prod. Countries"}),
+				    #"Cleanse - Shorten UK" = Table.ReplaceValue(#"Cleanse - Shorten US","United Kingdom","UK",Replacer.ReplaceText,{"Prod. Countries"}),
+				    #"Enrich - Add Runtime Category" = Table.AddColumn(#"Cleanse - Shorten UK", "Runtime Category", each if [#"Runtime Min."] < 40 then "1.Short (<40m)" else if [#"Runtime Min."] < 90 then "2.Feature (<90m)" else if [#"Runtime Min."] < 180 then "3.Feature (<3h)" else if [#"Runtime Min."] <= 300 then "4.Feature (3h-5h)" else if [#"Runtime Min."] > 300 then "5.Long (>5h)" else null),
+				    #"Enrich - Add Release Year" = Table.AddColumn(#"Enrich - Add Runtime Category", "Release Year", each Date.Year([Release Date]), Int64.Type),
+				    #"Enrich - Add Release Year Cate." = Table.AddColumn(#"Enrich - Add Release Year", "Release Year Cate.", each if [Release Year] < 1980 then "1.Before 1980s" else if [Release Year] < 1990 then "2.1980s" else if [Release Year] < 2000 then "3.1990s" else if [Release Year] < 2010 then "4.2000s" else if [Release Year] < 2020 then "5.2010s" else if [Release Year] >= 2020 then "6.Since 2020s" else null),
+				    #"Enrich - Add Vote # Group" = Table.AddColumn(#"Enrich - Add Release Year Cate.", "Vote # Group", each if [#"Vote #"] >= 2000 then "1.High" else if [#"Vote #"] >= 300 then "2.Normal" else if [#"Vote #"] < 300 then "3.Low" else null),
+				    #"Cleanse - Remove nouse columns" = Table.RemoveColumns(#"Enrich - Add Vote # Group",{"Status", "Release Date"})
+				in
+				    #"Cleanse - Remove nouse columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

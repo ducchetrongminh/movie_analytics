@@ -8,7 +8,6 @@ WITH join_data AS (
     , COALESCE(
         dim_imdb_movie.title
         , dim_tmdb_movie.title
-        -- Movielens title is at last, because it contains release year
         , dim_movielens_movie.title
       ) AS title
     -- ATTRIBUTES
@@ -17,6 +16,11 @@ WITH join_data AS (
     , dim_tmdb_movie.tmdb_genres
     , dim_movielens_movie.movielens_genres
     -- DATE
+    , COALESCE(
+      dim_imdb_movie.start_year
+      , EXTRACT(YEAR FROM dim_tmdb_movie.release_date)
+      , dim_movielens_movie.release_year
+    ) AS release_year
     , dim_tmdb_movie.release_date
     , dim_imdb_movie.start_year
     , dim_imdb_movie.end_year
@@ -78,6 +82,7 @@ SELECT
   , tmdb_genres
   , movielens_genres
   -- DATE
+  , release_year
   , release_date
   , start_year
   , end_year

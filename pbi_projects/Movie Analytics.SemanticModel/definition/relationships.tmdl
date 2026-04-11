@@ -1,0 +1,10 @@
+relationship AutoDetected_ab645f12-4955-4ab5-9158-72d8641c5fae
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'TMDB Movie Genre'.'TMDB ID'
+	toColumn: 'TMDB Movie'.'TMDB ID'
+
+relationship AutoDetected_80b0d37a-5f8c-46fb-b848-6977bb6c4fd1
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'TMDB Movie Prod Country'.'TMDB ID'
+	toColumn: 'TMDB Movie'.'TMDB ID'
+
